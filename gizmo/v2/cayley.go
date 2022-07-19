@@ -47,14 +47,14 @@ func (c *CayleyClinet) StringList(preds []string) string {
 	return items
 }
 
-func (c *CayleyClinet) makeQuad(q Triads) string {
+func (c *CayleyClinet) MakeQuad(q Triads) string {
 	var items string
 	for _, item := range q {
 		if item.Label == "" {
 			item.Label = "."
 		}
 
-		items += fmt.Sprintln(item.Subject, item.Predicate, item.Object, item.Label)
+		items += fmt.Sprintln(item.Subject, item.Predicate, item.Object, item.Label, " .")
 	}
 
 	return items
@@ -63,7 +63,7 @@ func (c *CayleyClinet) makeQuad(q Triads) string {
 func (c *CayleyClinet) Write(q Triads) error {
 	address := c.address + "/write"
 
-	triad := c.makeQuad(q)
+	triad := c.MakeQuad(q)
 
 	var x bytes.Buffer
 	x.Write([]byte(triad))
